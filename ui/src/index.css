@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body { @apply bg-page text-ink font-sans antialiased; font-variant-numeric: tabular-nums; }
+.card { @apply bg-surface border border-line rounded-xl; }
+.label { @apply text-[11px] uppercase tracking-wider text-ink-muted; }
+.btn { @apply px-3 py-1.5 rounded-md text-sm border border-axis hover:bg-raised transition-colors; }
+table.data th { @apply text-left text-[11px] uppercase tracking-wider text-ink-muted font-medium px-3 py-2 border-b border-line; }
+table.data td { @apply px-3 py-2 border-b border-line text-sm; }
+.sel { @apply bg-raised border border-axis rounded-md px-2 py-1.5 text-sm text-ink; }

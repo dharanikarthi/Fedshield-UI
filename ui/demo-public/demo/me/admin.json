@@ -1,0 +1,1 @@
+{"sub":"admin","role":"admin","bank":null,"name":"FedShield aggregation server","scope":{"can":["Which banks are connected and their row counts","Masked histogram sums per round","Gate decisions, privacy budget, global model quality"],"cannot":["Any account, transaction or label","Any single bank's unmasked histogram"]},"deployed":false,"probe_target":null}

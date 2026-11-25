@@ -1,0 +1,303 @@
+{
+ "accounts": 14683,
+ "mules": 2683,
+ "base_rate": 0.18272832527412655,
+ "txn_features_recomputed": 101,
+ "derived_recomputed": [
+  "passthrough_ratio",
+  "credit_debit_ratio",
+  "fan_in_out_ratio",
+  "txn_per_cp",
+  "span_days",
+  "txn_velocity",
+  "active_day_density",
+  "burst_ratio",
+  "dormancy_wake_intensity",
+  "mobile_spike_ratio",
+  "volume_to_balance",
+  "balance_drain",
+  "geo_spread",
+  "ip_per_txn"
+ ],
+ "dropped": [
+  "days_since_kyc"
+ ],
+ "accounts_with_no_pre_cutoff_txns": 1574,
+ "full_window": {
+  "auprc": 0.9195721773522494,
+  "auc": 0.9495885913079736,
+  "top": [
+   [
+    "bidir_ratio",
+    0.1105
+   ],
+   [
+    "n_cp",
+    0.0744
+   ],
+   [
+    "n_ip",
+    0.0375
+   ],
+   [
+    "max_gap_days",
+    0.0173
+   ],
+   [
+    "n_credit",
+    0.0169
+   ],
+   [
+    "reg_cp_links",
+    0.0155
+   ],
+   [
+    "n_txn",
+    0.0148
+   ],
+   [
+    "active_days",
+    0.0124
+   ],
+   [
+    "n_cp_in",
+    0.0123
+   ],
+   [
+    "n_bidir",
+    0.0122
+   ]
+  ]
+ },
+ "as_of": {
+  "auprc": 0.8958343353814127,
+  "auc": 0.9436357062353011,
+  "top": [
+   [
+    "reg_cp_rare",
+    0.0602
+   ],
+   [
+    "reg_cp_flagged",
+    0.0392
+   ],
+   [
+    "bidir_ratio",
+    0.0378
+   ],
+   [
+    "reg_ip_shared_mule",
+    0.0208
+   ],
+   [
+    "mobile_changed_after_open",
+    0.0183
+   ],
+   [
+    "max_gap_days",
+    0.0175
+   ],
+   [
+    "reg_cp_links",
+    0.017
+   ],
+   [
+    "mh_max_passthrough_1d",
+    0.0166
+   ],
+   [
+    "n_debit",
+    0.0157
+   ],
+   [
+    "n_ip",
+    0.0143
+   ]
+  ]
+ },
+ "full_window_no_registry": {
+  "auprc": 0.9159741081535995,
+  "auc": 0.9492897255320951,
+  "top": [
+   [
+    "cheque_allowed",
+    0.1068
+   ],
+   [
+    "bidir_ratio",
+    0.0799
+   ],
+   [
+    "n_cp",
+    0.046
+   ],
+   [
+    "n_credit",
+    0.0219
+   ],
+   [
+    "max_gap_days",
+    0.0206
+   ],
+   [
+    "n_cp_in",
+    0.0174
+   ],
+   [
+    "active_days",
+    0.0172
+   ],
+   [
+    "n_ip",
+    0.0152
+   ],
+   [
+    "n_cp_out",
+    0.014
+   ],
+   [
+    "n_txn",
+    0.0117
+   ]
+  ]
+ },
+ "as_of_no_registry": {
+  "auprc": 0.860907779553141,
+  "auc": 0.9211466673615772,
+  "top": [
+   [
+    "bidir_ratio",
+    0.0556
+   ],
+   [
+    "active_days",
+    0.0375
+   ],
+   [
+    "n_cp",
+    0.0374
+   ],
+   [
+    "n_ip",
+    0.0277
+   ],
+   [
+    "n_debit",
+    0.0199
+   ],
+   [
+    "n_credit",
+    0.018
+   ],
+   [
+    "max_gap_days",
+    0.0166
+   ],
+   [
+    "n_cp_in",
+    0.0153
+   ],
+   [
+    "txn_per_cp",
+    0.0152
+   ],
+   [
+    "mobile_changed_after_open",
+    0.0129
+   ]
+  ]
+ },
+ "static_only": {
+  "auprc": 0.38103191945294124,
+  "auc": 0.5963430881385304,
+  "top": [
+   [
+    "rural_branch",
+    0.0403
+   ],
+   [
+    "pin_mismatch_branch",
+    0.0321
+   ],
+   [
+    "account_age_days",
+    0.027
+   ],
+   [
+    "branch_turnover",
+    0.026
+   ],
+   [
+    "nri_flag",
+    0.0241
+   ],
+   [
+    "daily_avg_balance",
+    0.0224
+   ],
+   [
+    "pin_region_mismatch",
+    0.0223
+   ],
+   [
+    "quarterly_avg_balance",
+    0.0223
+   ],
+   [
+    "monthly_avg_balance",
+    0.0216
+   ],
+   [
+    "scheme_pmjjby",
+    0.0212
+   ]
+  ]
+ },
+ "static_only_with_kyc": {
+  "auprc": 0.6795079544456952,
+  "auc": 0.7926335693857208,
+  "top": [
+   [
+    "days_since_kyc",
+    0.1148
+   ],
+   [
+    "rural_branch",
+    0.0293
+   ],
+   [
+    "pin_mismatch_branch",
+    0.0239
+   ],
+   [
+    "scheme_pmjjby",
+    0.0224
+   ],
+   [
+    "quarterly_avg_balance",
+    0.0222
+   ],
+   [
+    "pin_region_mismatch",
+    0.022
+   ],
+   [
+    "account_age_days",
+    0.0213
+   ],
+   [
+    "branch_employee_count",
+    0.0212
+   ],
+   [
+    "daily_avg_balance",
+    0.0209
+   ],
+   [
+    "mobile_changed_after_open",
+    0.0206
+   ]
+  ]
+ },
+ "seconds": 52.01163148880005
+}

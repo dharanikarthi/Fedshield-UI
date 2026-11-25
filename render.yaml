@@ -1,0 +1,19 @@
+# Render blueprint for the FedShield API (the UI goes to Vercel; see docs/DEPLOYMENT.md).
+# The model artefacts are NOT in git: build them with scripts/make_deploy_bundle.py, upload
+# deploy/fedshield_work.zip somewhere that serves a direct download, and set FEDSHIELD_BUNDLE_URL.
+services:
+  - type: web
+    name: fedshield-api
+    runtime: docker
+    dockerfilePath: docker/Dockerfile.api
+    plan: standard            # >= 1 GB RAM; the API uses ~450 MB after a live federation run
+    healthCheckPath: /api/health
+    envVars:
+      - key: FEDSHIELD_WORK
+        value: /tmp/fedshield/work
+      - key: FEDSHIELD_BUNDLE_URL
+        sync: false           # set in the dashboard: direct link to fedshield_work.zip
+      - key: FEDSHIELD_SECRET
+        generateValue: true
+      - key: FEDSHIELD_DEMO_PASSWORD
+        sync: false

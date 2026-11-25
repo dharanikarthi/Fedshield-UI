@@ -1,0 +1,11 @@
+.venv
+Datasets
+work
+ui/node_modules
+ui/dist
+**/__pycache__
+chat_history
+FedShield Outputs
+*.pdf
+benchmark.ipynb
+results/submission

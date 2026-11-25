@@ -1,0 +1,30 @@
+.venv/
+Datasets/
+work/
+__pycache__/
+*.pyc
+node_modules/
+ui/dist/
+.env
+
+# data and derived artefacts (licensed competition data; GBs)
+FedShield Outputs/
+results/submission/
+*.parquet
+*.pkl
+# confidential / third-party material, kept local only
+NFPC Features.pdf
+benchmark.ipynb
+# local tooling and chat transcripts
+chat_history/
+.claude/
+ui/.vercel/
+.vercel/
+.pytest_cache/
+
+# machine-specific root CAs for docker builds
+docker/certs/*.crt
+
+# deploy bundle (derived from competition data)
+deploy/
+*.zip

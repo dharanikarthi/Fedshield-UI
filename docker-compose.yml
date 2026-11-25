@@ -1,0 +1,60 @@
+# FedShield consortium: 3 bank nodes (each mounts ONLY its own partition),
+# a neutral aggregator, the bank-facing API/UI, Redis (online features) and
+# Redpanda (event bus for the payment stream).
+#
+#   python scripts/export_partitions.py      # once, after the experiments
+#   docker compose up --build
+#   UI: http://localhost:8000
+x-node: &node
+  build: { context: ., dockerfile: docker/Dockerfile.node }
+  command: ["uvicorn", "fedshield.fl.service:bank_app", "--host", "0.0.0.0", "--port", "9000"]
+
+services:
+  bank-a:
+    <<: *node
+    environment: { BANK_NAME: Bank-A, BANK_DATA: /data/Bank-A.parquet }
+    volumes: ["./work/partitions/Bank-A.parquet:/data/Bank-A.parquet:ro"]
+  bank-b:
+    <<: *node
+    environment: { BANK_NAME: Bank-B, BANK_DATA: /data/Bank-B.parquet }
+    volumes: ["./work/partitions/Bank-B.parquet:/data/Bank-B.parquet:ro"]
+  bank-c:
+    <<: *node
+    environment: { BANK_NAME: Bank-C, BANK_DATA: /data/Bank-C.parquet }
+    volumes: ["./work/partitions/Bank-C.parquet:/data/Bank-C.parquet:ro"]
+
+  aggregator:
+    build: { context: ., dockerfile: docker/Dockerfile.node }
+    command: ["python", "-m", "fedshield.fl.service", "aggregate",
+              "http://bank-a:9000", "http://bank-b:9000", "http://bank-c:9000"]
+    environment: { N_TREES: "100" }
+    volumes: ["./work/models:/data/work/models"]
+    depends_on: [bank-a, bank-b, bank-c]
+    restart: "no"
+
+  redis:
+    image: redis:7-alpine
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.7
+    command: ["redpanda", "start", "--mode", "dev-container", "--smp", "1", "--memory", "512M",
+              "--kafka-addr", "internal://0.0.0.0:9092", "--advertise-kafka-addr", "internal://redpanda:9092",
+              "--pandaproxy-addr", "internal://0.0.0.0:8082", "--advertise-pandaproxy-addr", "internal://redpanda:8082"]
+
+  # publishes the payment replay onto Redpanda; the API consumes and scores it
+  replayer:
+    build: { context: ., dockerfile: docker/Dockerfile.node }
+    command: ["python", "-m", "fedshield.stream.bus", "replay"]
+    environment: { REDPANDA_PROXY: "http://redpanda:8082", REPLAY_RATE: "20" }
+    volumes: ["./work:/data/work:ro"]
+    depends_on: [redpanda]
+    restart: on-failure
+
+  api:
+    build: { context: ., dockerfile: docker/Dockerfile.api }
+    ports: ["8000:8000"]
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      REDPANDA_PROXY: http://redpanda:8082
+      FEDSHIELD_SECRET: change-me-for-a-real-deployment
+    volumes: ["./work:/data/work", "./results:/app/results:ro"]
+    depends_on: [redis, redpanda]

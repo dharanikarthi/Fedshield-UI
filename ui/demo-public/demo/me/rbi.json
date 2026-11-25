@@ -1,0 +1,1 @@
+{"sub":"rbi","role":"rbi","bank":null,"name":"RBI supervisory desk","scope":{"can":["Cross-bank clusters via hashed identifiers","Alert counts, evidence sources, audit trail","Pattern library and fairness metrics"],"cannot":["Raw customer data, balances or transactions","Account identities (hashed only)"]},"deployed":false,"probe_target":null}

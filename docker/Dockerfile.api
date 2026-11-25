@@ -1,0 +1,24 @@
+# FedShield API + built React UI (served from /)
+FROM node:22-slim AS ui
+WORKDIR /ui
+COPY docker/certs/ /certs/
+RUN cat /certs/*.crt > /tmp/extra.pem 2>/dev/null || true
+ENV NODE_EXTRA_CA_CERTS=/tmp/extra.pem
+COPY ui/package*.json ./
+RUN npm ci --no-audit --no-fund
+COPY ui/ ./
+RUN npm run build
+
+FROM python:3.11-slim
+WORKDIR /app
+# optional extra root CAs (TLS-inspecting networks); docker/certs/*.crt, never committed
+COPY docker/certs/ /usr/local/share/ca-certificates/extra/
+RUN update-ca-certificates 2>/dev/null || true
+ENV PIP_CERT=/etc/ssl/certs/ca-certificates.crt REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY fedshield/ fedshield/
+COPY --from=ui /ui/dist ui/dist
+ENV PYTHONUNBUFFERED=1 FEDSHIELD_WORK=/data/work
+EXPOSE 8000
+CMD ["uvicorn", "fedshield.api.server:app", "--host", "0.0.0.0", "--port", "8000"]
